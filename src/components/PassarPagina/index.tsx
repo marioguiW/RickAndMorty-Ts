@@ -1,45 +1,34 @@
-import { useContext } from "react"
-import styled from "styled-components"
-import { CharactersContext } from "../../context/personagensContext"
+// PaginationControls.tsx
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { CharactersContext } from '../../context/personagensContext';
+import { useFetch } from '../../hooks/useFetch';
 
 
-const ContainerPassarPagina = styled.div`
-    display: flex;
-    gap: 20px;
-`
+const Container = styled.div`
+  display: flex;
+  gap: 20px;
+`;
 
-const BotaoEstilizado = styled.button`
-    font-size: 20px;
-    width: 200px;
-    padding: 15px;
-    background-color: #ffb938;
-    color: white;
-    border: none;
-    &:hover{
-        background-color: #ffa600;
-        cursor: pointer;
-    }
-`
+const Button = styled.button`
+  font-size: 16px;
+  padding: 10px 15px;
+  cursor: pointer;
+`;
 
-export default function PassarPagina(){
+const PaginationControls: React.FC = () => {
+  const { info, setEndpoint } = useContext(CharactersContext)!;
 
-    
-    const {characters ,setCharacters} = useContext(CharactersContext)!
-    
-    function verificaAntProx(event : React.MouseEvent<HTMLButtonElement, MouseEvent>){
-        const botao = event.currentTarget.value
+  return (
+    <Container>
+      <Button onClick={()=> info.prev && setEndpoint(info.prev)} disabled={!info.prev}>
+        Anterior
+      </Button>
+      <Button onClick={()=> info.next && setEndpoint(info.next)} disabled={!info.next}>
+        Próximo
+      </Button>
+    </Container>
+  );
+};
 
-        if(botao == 'ant'){
-            if(characters.info.prev !== null) 
-        }else{
-            console.log(characters.info.next)
-        }
-    }
-
-    return(
-        <ContainerPassarPagina>
-            <BotaoEstilizado value="ant" onClick={(event)=> verificaAntProx(event)}>anterior</BotaoEstilizado>
-            <BotaoEstilizado value="prox" onClick={(event)=> verificaAntProx(event)}>próximo</BotaoEstilizado>
-        </ContainerPassarPagina>
-    )
-}
+export default PaginationControls;

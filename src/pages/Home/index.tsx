@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Formulario from "../../components/Formulario";
 import Personagens from "../../components/Personagens";
 import { useFetch } from "../../hooks/useFetch";
@@ -18,16 +18,15 @@ const Container = styled.div`
 
 export default function Home(){
 
-    useFetch("https://rickandmortyapi.com/api/character")
+    useFetch()
 
-    const {characters} = useContext(CharactersContext)!
-
-    console.log(characters)
+    const {characters, info} = useContext(CharactersContext)!
+    const [gender, setGender] = useState('')
 
     return(
         <Container>
-            <Formulario />
-            <Personagens personagens={characters.results} />
+            <Formulario gender={gender} setGender={setGender} />
+            <Personagens personagens={characters} />
             <PassarPagina/>
         </Container>
     )
