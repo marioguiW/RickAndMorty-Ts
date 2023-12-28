@@ -9,15 +9,21 @@ export function useFetch<T = unknown>() {
             info,
             setInfo,
             endpoint,
-            setEndpoint
+            setEndpoint,
+            error,
+            setError
         } = useContext(CharactersContext)!
 
     useEffect(()=> {
         axios.get(endpoint)
             .then(resp => { 
+                setError(false)
             setCharacters(resp.data.results)
             setInfo(resp.data.info)
             console.log(characters)
+        }).catch(error => {
+            console.log(error)
+            setError(true)
         })
     },[endpoint])
 }

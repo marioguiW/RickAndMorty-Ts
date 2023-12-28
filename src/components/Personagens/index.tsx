@@ -1,15 +1,12 @@
 import styled from "styled-components"
 import { CharacterType } from "../../type/Character"
-
-interface PersonagensType {
-    personagens: CharacterType[]
-}
+import { useContext, useEffect } from "react"
+import { useFetch } from "../../hooks/useFetch"
+import { CharactersContext } from "../../context/personagensContext"
 
 const MainEstilizada = styled.main`
-
     display: flex;
     width: 80%;
-
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
@@ -60,14 +57,33 @@ const DivInfos = styled.div`
     display: flex;
     flex-direction: column;
     margin-left: 18px;
-    
+
 `
 
-export default function Personagens({ personagens }: PersonagensType) {
+// https://rickandmortyapi.com/api/character?name=princes&species=&gender=&status=&page=1
+
+interface PersonagensType {
+    personagens: CharacterType[];
+    setPersonagens: React.Dispatch<React.SetStateAction<CharacterType[]>>;
+    gender: string;
+    name: string;
+    specie: string;
+    status: string;
+    error: boolean
+}
+
+export default function Personagens({ personagens, setPersonagens, gender, name,specie,status,error }: PersonagensType) {
+    
+    const {setEndpoint} = useContext(CharactersContext)!
+
+    useEffect(()=>{     
+        setEndpoint(`https://rickandmortyapi.com/api/character?name=${name}&species=${specie}&gender=${gender}&status=${status}&page=1`)
+    },[gender,name,specie,status])
 
     return (
         <MainEstilizada>
-            {personagens.map(a=>(
+
+            {!error && personagens.map(a=>(
                 <DivEstilizada key={a.id}>
                     <DivImagemEstilizado>
                         <ImagemEstilizada src={a.image} alt="" />

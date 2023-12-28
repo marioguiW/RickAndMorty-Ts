@@ -9,6 +9,8 @@ interface CharactersContextType {
     setInfo: React.Dispatch<React.SetStateAction<InfoType>>; 
     endpoint: string;
     setEndpoint: React.Dispatch<React.SetStateAction<string>>;
+    error: boolean;
+    setError: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface CharactersProviderProps {
@@ -38,6 +40,8 @@ const CharactersProvider: React.FC<CharactersProviderProps> = ({ children }) => 
     const [endpoint, setEndpoint] = useState<string>
         ("https://rickandmortyapi.com/api/character")
 
+    const [error, setError] = useState<boolean>(false)
+
     return(
         <CharactersContext.Provider value={
                     {characters,
@@ -45,7 +49,9 @@ const CharactersProvider: React.FC<CharactersProviderProps> = ({ children }) => 
                     info,
                     setInfo,
                     endpoint,
-                    setEndpoint
+                    setEndpoint,
+                    error,
+                    setError
                 }
                 }>
             {children}

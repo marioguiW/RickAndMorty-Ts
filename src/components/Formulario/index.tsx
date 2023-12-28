@@ -28,39 +28,50 @@ const ContainerFormulario = styled.div`
 interface FormularioProps{
     gender: string;
     setGender: React.Dispatch<React.SetStateAction<string>>;
+    name: string;
+    setName: React.Dispatch<React.SetStateAction<string>>;
+    specie: string;
+    setSpecie: React.Dispatch<React.SetStateAction<string>>;
+    status: string;
+    setStatus: React.Dispatch<React.SetStateAction<string>>;
 }
 
 
 
-export default function Formulario({gender, setGender} : FormularioProps){
+export default function Formulario(
+    {gender,
+    setGender,
+    name,
+    setName,
+    specie,
+    setSpecie,
+    status,
+    setStatus} : FormularioProps){
+
     console.log(gender)
+
     return(
         <ContainerFormulario>
-            <InputEstilizado type="text" />
-            <SelectEstilizado name="Gender" value={gender} onChange={(event)=> setGender(event.target.value)}>
-                <option value="A"></option>
+            <InputEstilizado type="text" value={name} onChange={(evento)=> setName(evento.target.value)} />
+            <SelectEstilizado value={gender} onChange={(event)=> setGender(event.target.value)}>
+                <option value="">Genero</option>
                 <option value="M">Male</option>
                 <option value="F">Female</option>
             </SelectEstilizado>
-            <SelectEstilizado name="Specie" id="">
-                <option value=""></option>
-                <option value="">Human</option>
-                <option value="">Alien</option>
-                <option value="">Mythological Creature</option>
-                <option value="">Humanoid</option>
-                <option value="">unknown</option>
-                <option value="">Animal</option>
-                <option value="">Robot</option>
+            <SelectEstilizado value={specie} onChange={(event)=> setSpecie(event.target.value)}>
+                <option value="">Especie</option>
+                <option value="Human">Human</option>
+                <option value="Alien">Alien</option>
+                <option value="Mythological Creature">Mythological Creature</option>
+                <option value="Humanoid">Humanoid</option>
+                <option value="unknown">unknown</option>
+                <option value="Animal">Animal</option>
+                <option value="Robot">Robot</option>
             </SelectEstilizado>
-            <SelectEstilizado name="Status" id="">
-                <option value="">Any</option>
-                <option value="">Alive</option>
-                <option value="">Dead</option>
-            </SelectEstilizado>
-            <SelectEstilizado name="Genero" id="">
-                <option value="">Any</option>
-                <option value="">Male</option>
-                <option value="">Female</option>
+            <SelectEstilizado value={status} onChange={(event)=> setStatus(event.target.value)}>
+                <option value="">Status</option>
+                <option value="Alive">Alive</option>
+                <option value="Dead">Dead</option>
             </SelectEstilizado>
         </ContainerFormulario>
     )

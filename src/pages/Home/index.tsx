@@ -20,13 +20,33 @@ export default function Home(){
 
     useFetch()
 
-    const {characters, info} = useContext(CharactersContext)!
+    const {characters, setCharacters, info, error} = useContext(CharactersContext)!
     const [gender, setGender] = useState('')
-
+    const [name, setName] = useState('')
+    const [specie, setSpecie] = useState('')
+    const [status, setStatus] = useState('')
+ 
     return(
         <Container>
-            <Formulario gender={gender} setGender={setGender} />
-            <Personagens personagens={characters} />
+            <Formulario
+                gender={gender}
+                setGender={setGender}
+                name={name}
+                setName={setName}
+                specie={specie}
+                setSpecie={setSpecie}
+                status={status}
+                setStatus={setStatus}
+            />
+            <Personagens
+                personagens={characters}
+                setPersonagens={setCharacters}
+                gender={gender}
+                name={name}
+                specie={specie}
+                status={status}
+                error={error}
+                />
             <PassarPagina/>
         </Container>
     )
